@@ -1,0 +1,9 @@
+@smo:100,101,110,120
+
+_ZN2al24initActorWithArchiveNameEPNS_9LiveActorERKNS_13ActorInitInfoERKN4sead14SafeStringBaseIcEEPKc
+
+@smo:100
+_ZN2al13initActorImplEPNS_9LiveActorERKNS_13ActorInitInfoERKN4sead14SafeStringBaseIcEES9_PKc = 0x008dc12c
+
+@smo:130
+_ZN2al13initActorImplEPNS_9LiveActorERKNS_13ActorInitInfoERKN4sead14SafeStringBaseIcEES9_PKc = 0x0065f520

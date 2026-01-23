@@ -1,0 +1,14 @@
+@smo:100
+$grow_plant_seed_init = 0x00296bf8
+
+@smo:101
+$grow_plant_seed_init = 0x002971e8
+
+@smo:110
+$grow_plant_seed_init = 0x002972cc
+
+@smo:120
+$grow_plant_seed_init = 0x0029aa44
+
+@smo:130
+$grow_plant_seed_init = 0x0026381c
