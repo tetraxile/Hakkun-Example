@@ -17,4 +17,5 @@ void newInitActor(al::LiveActor* actor, const al::ActorInitInfo& initInfo, const
 
 extern "C" void hkMain() {
     hk::hook::writeBranchLinkAtSym<"$grow_plant_seed_init">(newInitActor);
+    // hk::hook::writeBranchAtSym<"_ZN2al24initActorWithArchiveNameEPNS_9LiveActorERKNS_13ActorInitInfoERKN4sead14SafeStringBaseIcEEPKc">(newInitActor);
 }
