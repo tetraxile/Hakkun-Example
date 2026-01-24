@@ -1,0 +1,7 @@
+@smo:100,101,110,120
+_ZN2al23isValidReplayControllerEj
+_ZN2al19getReplayControllerEj
+
+@smo:130
+_ZN2al23isValidReplayControllerEj = 0x005d76f0
+_ZN2al19getReplayControllerEj = 0x005d7600
