@@ -13,6 +13,8 @@
 #include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/LiveActor.h"
 #include "Library/Nerve/NerveUtil.h"
+#include "Project/SaveData/SaveDataSequenceRead.h"
+#include "Project/SaveData/SaveDataSequenceWrite.h"
 
 #include "MapObj/CapMessageShowInfo.h"
 #include "Util/PlayerHackFunction.h"
@@ -98,12 +100,24 @@ HkTrampoline saveWriteHook = [](TrampolineStatic(), void* thisPtr, sead::FileDev
     return orig(thisPtr, &newDevice, path.cstr());
 };
 
+HkTrampoline jumpingRopeNpcInitHook = [](TrampolineStatic(), al::LiveActor* thisPtr, const al::ActorInitInfo& initInfo) -> void {
+    orig(thisPtr, initInfo);
+    *(u32*)((ptr)thisPtr + 0x200) = 50;
+    *(u32*)((ptr)thisPtr + 0x204) = 150;
+};
+
 extern "C" void hkMain() {
     hk::hook::writeBranchAtSym<"$heap_create_hook">(initHeap);
 
+    // make motorcycle interact with SnapMoveArea
     motorcycleCollider.installAtSym<"_ZN10Motorcycle14updateColliderEv">();
+
+    // fix motorcycle crashing when it lands in water
     hk::hook::writeBranchLinkAtSym<"$water_motorcycle">(calcFindWaterSurfaceFlat);
 
-    saveReadHook.installAtSym<"_ZN2al20SaveDataSequenceRead4readEPN4sead10FileDeviceEPKcPj">();
-    saveWriteHook.installAtSym<"_ZN2al21SaveDataSequenceWrite5writeEPN4sead10FileDeviceEPKc">();
+    // change number of jumps required in jump rope
+    jumpingRopeNpcInitHook.installAtSym<"_ZN14JumpingRopeNpc4initERKN2al13ActorInitInfoE">();
+
+    saveReadHook.installAtPtr(&al::SaveDataSequenceRead::read);
+    saveWriteHook.installAtPtr(&al::SaveDataSequenceWrite::write);
 }
