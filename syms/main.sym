@@ -1,0 +1,9 @@
+@smo:100,101,110,120
+
+$heap_create_hook = _ZN4sead13GameFramework10initializeERKNS_9Framework13InitializeArgE + 0x1c4
+$water_motorcycle = _ZN10Motorcycle8movementEv + 0xbac
+
+@smo:130
+
+$water_motorcycle = 0x290644
+$heap_create_hook = 0x943884
