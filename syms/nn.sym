@@ -1,0 +1,5 @@
+@sdk
+_ZN2nn2oe17FinishStartupLogoEv
+_ZN2nn2fs19MountSdCardForDebugEPKc
+_ZN2nn2fs8OpenFileEPNS0_10FileHandleEPKci
+_ZN2nn2fs9CloseFileENS0_10FileHandleE

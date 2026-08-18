@@ -1,0 +1,21 @@
+#pragma once
+
+#include "Library/Area/AreaObj.h"
+
+namespace al {
+class CameraStartParamArea : public AreaObj {
+public:
+    CameraStartParamArea(const char* name);
+
+    void init(const AreaInitInfo& info) override;
+
+    void appear();
+    void kill();
+
+public:
+    bool mIsAlive = true;
+    bool mIsKillIfEnter = false;
+    f32* mAngleH = nullptr;
+    f32* mAngleV = nullptr;
+};
+}  // namespace al
