@@ -3,10 +3,11 @@
 
 #include <cstring>
 
-#include <agl/common/aglDrawContext.h>
+#include <nn/account.h>
 #include <nn/fs.h>
 #include <sead/filedevice/nin/seadNinSaveFileDeviceNin.h>
 #include <sead/filedevice/seadFileDevice.h>
+#include <sead/gfx/seadColor.h>
 #include <sead/heap/seadExpHeap.h>
 #include <sead/heap/seadHeapMgr.h>
 
@@ -118,6 +119,6 @@ extern "C" void hkMain() {
     // change number of jumps required in jump rope
     jumpingRopeNpcInitHook.installAtSym<"_ZN14JumpingRopeNpc4initERKN2al13ActorInitInfoE">();
 
-    saveReadHook.installAtPtr(&al::SaveDataSequenceRead::read);
-    saveWriteHook.installAtPtr(&al::SaveDataSequenceWrite::write);
+    // saveReadHook.installAtPtr(&al::SaveDataSequenceRead::read);
+    // saveWriteHook.installAtPtr(&al::SaveDataSequenceWrite::write);
 }
