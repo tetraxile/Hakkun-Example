@@ -1,5 +1,6 @@
 #include <hk/container/FixedString.h>
 #include <hk/hook/Trampoline.h>
+#include <hk/diag/ipclogger.h>
 
 #include <cstring>
 
@@ -13,6 +14,7 @@
 
 #include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/LiveActor.h"
+#include "Library/Nerve/NerveStateBase.h"
 #include "Library/Nerve/NerveUtil.h"
 #include "Project/SaveData/SaveDataSequenceRead.h"
 #include "Project/SaveData/SaveDataSequenceWrite.h"
@@ -107,7 +109,15 @@ HkTrampoline jumpingRopeNpcInitHook = [](TrampolineStatic(), al::LiveActor* this
     *(u32*)((ptr)thisPtr + 0x204) = 150;
 };
 
+void hakoniwaStateDemoOpeningKill(al::NerveStateBase* thisPtr, const al::Nerve* _balls) {
+    thisPtr->kill();
+}
+
 extern "C" void hkMain() {
+    HK_ABORT_UNLESS_R(hk::diag::ipclogger::IpcLogger::initialize());
+
+    hk::diag::logLine("hiiieeee :3c");
+
     hk::hook::writeBranchAtSym<"$heap_create_hook">(initHeap);
 
     // make motorcycle interact with SnapMoveArea
@@ -119,6 +129,13 @@ extern "C" void hkMain() {
     // change number of jumps required in jump rope
     jumpingRopeNpcInitHook.installAtSym<"_ZN14JumpingRopeNpc4initERKN2al13ActorInitInfoE">();
 
-    // saveReadHook.installAtPtr(&al::SaveDataSequenceRead::read);
-    // saveWriteHook.installAtPtr(&al::SaveDataSequenceWrite::write);
+    saveReadHook.installAtPtr(&al::SaveDataSequenceRead::read);
+    saveWriteHook.installAtPtr(&al::SaveDataSequenceWrite::write);
+
+    // skip intro cutscene on new save file
+    hk::hook::writeBranchAtSym<"$hakoniwa_state_demo_opening_kill">(hakoniwaStateDemoOpeningKill);
+
+    hk::hook::a64::assemble<"mov w1, #1">().installAtSym<"$hakoniwa_sequence_load_stage_first">();
+
+    hk::hook::a64::assemble<"nop">().installAtSym<"$tank_no_turn">();
 }

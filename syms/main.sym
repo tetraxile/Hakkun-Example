@@ -7,3 +7,9 @@ $water_motorcycle = _ZN10Motorcycle8movementEv + 0xbac
 
 $water_motorcycle = 0x290644
 $heap_create_hook = 0x943884
+
+@smo:100
+
+$hakoniwa_state_demo_opening_kill = 0x512a98
+$hakoniwa_sequence_load_stage_first = 0x50f57c
+$tank_no_turn = 0x1880f4
